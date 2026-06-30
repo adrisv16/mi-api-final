@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: Mi API Final
+  version: 1.0.0
+  description: Documentación de la API creada por Adrián
+
+servers:
+  - url: https://mi-api-final.vercel.app
+
+paths:
+  /api/v1/hello:
+    get:
+      summary: Endpoint de saludo básico
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+
+  /api/v1/saludo:
+    get:
+      summary: Saludo personalizado
+      parameters:
+        - name: nombre
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Saludo personalizado
+
+  /api/v1/usuarios:
+    get:
+      summary: Lista de usuarios (protegido con JWT)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de usuarios
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
